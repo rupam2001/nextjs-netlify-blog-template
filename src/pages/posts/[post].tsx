@@ -4,7 +4,7 @@ import { MdxRemote } from "next-mdx-remote/types";
 import hydrate from "next-mdx-remote/hydrate";
 import matter from "gray-matter";
 import { fetchPostContent } from "../../lib/posts";
-import fs from "fs";
+
 import yaml from "js-yaml";
 import { parseISO } from 'date-fns';
 import PostLayout from "../../components/PostLayout";
@@ -12,6 +12,9 @@ import PostLayout from "../../components/PostLayout";
 import InstagramEmbed from "react-instagram-embed";
 import YouTube from "react-youtube";
 import { TwitterTweetEmbed } from "react-twitter-embed";
+import { useEffect } from "react";
+import { getHtmlContent } from "../../lib/htmls";
+import fs from 'fs';
 
 export type Props = {
   title: string;
@@ -40,6 +43,13 @@ export default function Post({
   source,
 }: Props) {
   const content = hydrate(source, { components })
+
+  useEffect(() => {
+    // const htmlContent = getHtmlContent("content/html/Project_proposal/Projectproposal.html")
+    // console.log(htmlContent)
+  }, [])
+
+
   return (
     <PostLayout
       title={title}
@@ -50,6 +60,7 @@ export default function Post({
       description={description}
     >
       {content}
+
     </PostLayout>
   )
 }
